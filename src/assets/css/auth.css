@@ -166,6 +166,10 @@ body {
   font-weight: bold;
 }
 
+.form-group.hide {
+    display: none;
+}
+
 /* RESPONSIVE */
 
 @media (max-width: 900px) {
