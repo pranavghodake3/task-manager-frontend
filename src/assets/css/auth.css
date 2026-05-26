@@ -166,8 +166,15 @@ body {
   font-weight: bold;
 }
 
-.form-group.hide {
+.form-group.hide, .form-group.success {
     display: none;
+}
+
+.form-group.invalid-credentials{
+  background-color: #f5eaea;
+}
+.form-group.invalid-credentials label{
+  color: red;
 }
 
 /* RESPONSIVE */

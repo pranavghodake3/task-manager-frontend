@@ -35,7 +35,7 @@ export default function Dashboard() {
     <div className="dashboard">
       {/* Sidebar */}
       <aside className="sidebar">
-        <div className="logo">TaskFlow</div>
+        <div className="logo"><a href="/">Home</a></div>
 
         <nav className="menu">
           <a href="/">Dashboard</a>

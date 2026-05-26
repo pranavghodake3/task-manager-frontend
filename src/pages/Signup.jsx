@@ -3,7 +3,7 @@ import "../assets/css/auth.css";
 import api from "../services/api";
 
 export default function Signup() {
-  const [selectedCompany, selectSelectedCompany] = useState("0");
+  const [isCompany, selectIsCompany] = useState("0");
   const [companyName, selectCompanyName] = useState("");
   const [firstName, selectFirstName] = useState("");
   const [lastName, selectLastName] = useState("");
@@ -12,12 +12,12 @@ export default function Signup() {
   const [confirmPassword, selectConfirmPassword] = useState("");
 
   function handleIsCompany(e) {
-    selectSelectedCompany(e.target.value);
+    selectIsCompany(e.target.value);
   }
   async function handleSubmit(e) {
     e.preventDefault();
-    const response = await api.post(selectedCompany == 1 ? "/auth/register/company" : "auth/register", {
-      ...(selectedCompany == 1 ? {name: companyName} : null),
+    const response = await api.post(isCompany == 1 ? "/auth/register/company" : "auth/register", {
+      ...(isCompany == 1 ? {name: companyName} : null),
       firstName,
       lastName,
       email,
@@ -37,21 +37,20 @@ export default function Signup() {
             </p>
 
             <form className="auth-form" onSubmit={handleSubmit}>
+             
               <div className="form-group">
                 <label>Is Company ?</label>
-                </div>
-              <div className="form-group">
                 <label>
-                  <input type="radio" name="company" checked={selectedCompany === "0"}  value="0" onChange={handleIsCompany} />
+                  <input type="radio" name="company" checked={isCompany === "0"}  value="0" onChange={handleIsCompany} />
                   No
                 </label>
                 <label>
-                  <input type="radio" name="company" checked={selectedCompany === "1"}  value="1" onChange={handleIsCompany} />
+                  <input type="radio" name="company" checked={isCompany === "1"}  value="1" onChange={handleIsCompany} />
                   Yes
                 </label>
               </div>
 
-              <div className={`form-group ${ selectedCompany == '0' ? 'hide' : 'show' }`}>
+              <div className={`form-group ${ isCompany == '0' ? 'hide' : 'show' }`}>
                 <label>Company Name</label>
                 <input type="text" placeholder="Enter your company name" onChange={(e) => selectCompanyName(e.target.value)} />
               </div>

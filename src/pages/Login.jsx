@@ -2,15 +2,30 @@ import { useState } from "react";
 
 import "../assets/css/auth.css";
 import api from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const [apiError, setApiError] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoginSuccess, setIsLoginSuccess] = useState(true);
 
     async function handleSubmit(e){
         e.preventDefault();
-        const response = await api.post("/auth/login", {email, password});
-        console.log(response);
+        try {
+          const response = await api.post("/auth/login", {email, password});
+          console.log(response);
+          setIsLoginSuccess(response.data.status);
+          if(response.data.status){
+            navigate('/dashboard');
+          }else{
+            
+          }
+        } catch (error) {
+          setApiError(error.response.data.error.message);
+          setIsLoginSuccess(error.response.data.status);
+        }
     }
 
   return (
@@ -35,6 +50,9 @@ export default function Login() {
                 <label>Password</label>
                 <input type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
+              <div className={`form-group ${isLoginSuccess ? 'success' : 'invalid-credentials'}`}>
+                <label>{ apiError }</label>
+                </div>
 
               <div className="form-options">
                 <label className="remember-me">
